@@ -1,0 +1,77 @@
+﻿[workspace]
+resolver = "3"
+members = [
+    "crates/rustiny-core",
+    "crates/rustiny-assets",
+    "crates/rustiny-scene",
+    "crates/rustiny-model",
+    "crates/rustiny-shader",
+    "crates/rustiny-profiler",
+    "crates/rustiny-vulkan",
+    "crates/rustiny-render",
+    "crates/rustiny-editor",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+license = "MIT OR Apache-2.0"
+repository = "https://example.invalid/rustiny"
+publish = false
+
+[workspace.dependencies]
+# internal
+rustiny-core = { path = "crates/rustiny-core" }
+rustiny-assets = { path = "crates/rustiny-assets" }
+rustiny-scene = { path = "crates/rustiny-scene" }
+rustiny-model = { path = "crates/rustiny-model" }
+rustiny-shader = { path = "crates/rustiny-shader" }
+rustiny-profiler = { path = "crates/rustiny-profiler" }
+rustiny-vulkan = { path = "crates/rustiny-vulkan" }
+rustiny-render = { path = "crates/rustiny-render" }
+
+# platform / graphics
+ash = "0.38"
+winit = "0.30.13"
+raw-window-handle = "0.6"
+ash-window = "0.13"
+gpu-allocator = { version = "0.28", default-features = false, features = ["vulkan", "std"] }
+
+# editor ui
+dear-imgui-rs = { version = "0.22", features = ["multi-viewport"] }
+dear-imgui-winit = { version = "0.22", features = ["multi-viewport"] }
+dear-imgui-ash = { version = "0.22", default-features = false, features = ["dynamic-rendering", "gpu-allocator", "multi-viewport-winit"] }
+
+# infrastructure
+thiserror = "2"
+serde = { version = "1", features = ["derive"] }
+toml = "1"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+directories = "6"
+png = "0.18"
+flate2 = { version = "1", default-features = false, features = ["rust_backend"] }
+notify = "8"
+
+[workspace.lints.rust]
+unsafe_op_in_unsafe_fn = "deny"
+missing_debug_implementations = "warn"
+linker_messages = "allow"
+
+[workspace.lints.clippy]
+undocumented_unsafe_blocks = "warn"
+dbg_macro = "warn"
+todo = "warn"
+unwrap_used = "warn"
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 2
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+debug = "line-tables-only"

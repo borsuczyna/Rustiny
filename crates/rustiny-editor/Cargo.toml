@@ -1,0 +1,39 @@
+[package]
+name = "rustiny-editor"
+description = "Rustiny editor application (winit + Vulkan + Dear ImGui)."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[lib]
+name = "rustiny_editor"
+path = "src/lib.rs"
+
+[[bin]]
+name = "rustiny"
+path = "src/main.rs"
+
+[dependencies]
+rustiny-core.workspace = true
+rustiny-assets.workspace = true
+rustiny-scene.workspace = true
+rustiny-render.workspace = true
+rustiny-model.workspace = true
+rustiny-shader.workspace = true
+rustiny-profiler.workspace = true
+rustiny-vulkan.workspace = true
+ash.workspace = true
+winit.workspace = true
+raw-window-handle.workspace = true
+gpu-allocator.workspace = true
+dear-imgui-rs.workspace = true
+dear-imgui-winit.workspace = true
+dear-imgui-ash.workspace = true
+tracing.workspace = true
+thiserror.workspace = true
+png.workspace = true
+
+[lints]
+workspace = true

@@ -1,0 +1,24 @@
+[package]
+name = "rustiny-render"
+description = "GPU scene renderer: offscreen viewport target, instanced scene pass (Vulkan, ash)."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+build = "build.rs"
+
+[dependencies]
+rustiny-vulkan.workspace = true
+rustiny-shader.workspace = true
+ash.workspace = true
+gpu-allocator.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+
+[build-dependencies]
+# Pure-Rust shader translation (WGSL -> SPIR-V) so the build needs no external shader compiler.
+naga = { version = "30", default-features = false, features = ["wgsl-in", "spv-out"] }
+
+[lints]
+workspace = true

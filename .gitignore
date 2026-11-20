@@ -1,0 +1,4 @@
+/target
+/.rustiny
+*.log
+*.rustiny-recovery

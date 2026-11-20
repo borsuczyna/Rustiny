@@ -1,0 +1,16 @@
+[package]
+name = "rustiny-scene"
+description = "Unity scene model and a streaming reader for UnityYAML scene files."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+rustiny-model.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+
+[lints]
+workspace = true

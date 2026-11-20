@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  check:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust (version from rust-toolchain.toml)
+        run: rustup show
+      - name: Linux build dependencies
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y cmake pkg-config libx11-dev libxkbcommon-dev libwayland-dev libvulkan-dev mesa-vulkan-drivers xvfb
+      - run: cargo fmt --all -- --check
+      - run: cargo clippy --workspace --all-targets -- -D warnings
+      - name: Test (Windows)
+        if: runner.os == 'Windows'
+        run: cargo test --workspace
+      - name: Test (Linux, software Vulkan under Xvfb)
+        if: runner.os == 'Linux'
+        run: xvfb-run -a cargo test --workspace
